@@ -1,8 +1,8 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM fedora:30
 COPY root ./
 
-RUN microdnf -y --setopt=tsflags=nodocs install nginx && \
-    chmod 755 /etc/nginx/ssl && \
-    microdnf clean all
+RUN dnf install -y nginx \
+        && dnf clean all \
+        && rm -rf /var/cache/yum
 
 CMD ["./entrypoint.sh"]
